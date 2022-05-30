@@ -17,7 +17,7 @@
         $query_run = mysqli_query($link, $query);
 
         if ($query_run) {
-            $recipient = $email;
+            $recipient_email = $email;
             $referral_code = $referral_code;
         
             include "mail.php";

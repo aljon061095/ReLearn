@@ -1,10 +1,3 @@
-
-<?php require_once('config.php') ?>
-<?php
-     $code = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
-?>
-
-
 <!doctype html>
 <html lang="en">
 
