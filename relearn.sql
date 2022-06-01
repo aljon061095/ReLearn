@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   `gender` varchar(255) NOT NULL,
   `grade` varchar(255) NOT NULL,
   `referral_code` varchar(255),
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Indexes for dumped tables
 --

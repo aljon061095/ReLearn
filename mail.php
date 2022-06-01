@@ -29,8 +29,9 @@
     $mail->Subject = 'Welcome onBoarding ReLearn'; 
     
     // Mail body content 
-    $bodyContent = '<p>Join our referral program kindly share your referral code to others!</p>'; 
-    $bodyContent .= '<h3><b>ST'. $referral_code .'</b></h3>'; 
+    $bodyContent = '<div style="border: 2px solid blue; border-radius: 5px;width: 25%;
+    text-align: center;"><h2>Welcome onBoarding ReLearn!</h2><p>Join our referral program kindly share your referral code to others!</p>'; 
+    $bodyContent .= '<h3><b>ST'. $referral_code .'</b></h3></div>'; 
     $mail->Body    = $bodyContent; 
     
     // Send email 

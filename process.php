@@ -14,9 +14,12 @@
        
         $query = "INSERT INTO users(nickname, email, age, gender, grade, referral_code, password) 
             VALUES ('$nickname', '$email', '$age', '$gender', '$grade', '$referral_code', '$password')";
-        $query_run = mysqli_query($link, $query);
-
-        if ($query_run) {
+            
+        $database = new Database();
+        $db = $database->getConnection();
+        $stmt = $db->prepare($query);
+        
+        if ($stmt->execute()) {
             $recipient_email = $email;
             $referral_code = $referral_code;
         

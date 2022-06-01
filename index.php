@@ -16,6 +16,18 @@
         .invalid {
             border-color: #dc3545;
         }
+
+        #loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.75) url(https://marcorpsa.com/ee/images/loading2.gif) no-repeat center center;
+            z-index: 10000;
+        }
     </style>
 </head>
 
@@ -30,6 +42,8 @@
             </button>
         </div>
     </nav>
+
+    <div id="loader"></div>
 
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
@@ -66,11 +80,14 @@
             (function () {
                 'use strict'
 
+                var spinner = $('#loader');
+
                 $("#submit_register").click(function (e) { 
                     var _this = $(e.currentTarget);
                     var form = _this.closest('form')[0];
-
+            
                     if (form.checkValidity()) {
+                        spinner.show();
                         var nickname = $("#nickname").val();
                         var email = $("#email").val();
                         var age = $("#age").val();
@@ -93,6 +110,8 @@
                                 password: password
                             },
                             success: function(data) {
+                                spinner.hide();
+
                                 Swal.fire(
                                     'Successful',
                                     'Your account is sucessfully registered!',
@@ -102,6 +121,7 @@
                                 $("#staticBackdrop").modal('hide');
                             }, 
                             error: function(data) {
+                                console.log(data);
                                 Swal.fire(
                                     'Errors',
                                     'There were errors while saving the data',

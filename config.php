@@ -1,13 +1,21 @@
 <?php
-    define('DB_SERVER', 'localhost');
-    define('DB_USERNAME', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_NAME', 'relearn');
-    
-    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    
-    // Check connection
-    if ($link === false){
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
+    $connect = new PDO("mysql:host=localhost; dbname=relearn", "root", "");
+
+    class Database {
+        private $host = "localhost";
+        private $database_name = "relearn";
+        private $username = "root";
+        private $password = "";
+        public $conn;
+        public function getConnection(){
+            $this->conn = null;
+            try{
+                $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database_name, $this->username, $this->password);
+                $this->conn->exec("set names utf8");
+            }catch(PDOException $exception){
+                echo "Database could not be connected: " . $exception->getMessage();
+            }
+            return $this->conn;
+        }
+    }  
 ?>

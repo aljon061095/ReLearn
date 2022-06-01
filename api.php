@@ -1,31 +1,46 @@
 <?php
-    header("Content-Type:application/json");
-    include('config.php');
-    
-    if (isset($_GET['id']) && $_GET['id']!="") {
-        $id = $_GET['id'];
-        $query = "SELECT * FROM `users` WHERE id=$id";
-        $result = mysqli_query($link,$query);
-        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    class User {
+        private $conn;
+        private $db_table = "users";
+        public $id;
+        public $nickname;
+        public $email;
+        public $age;
+        public $gender;
+        public $grade;
+        public $referral_code;
+        public function __construct($db){
+            $this->conn = $db;
+        }
         
-        $userData['id'] = $row['id'];
-        $userData['nickname'] = $row['nickname'];
-        $userData['email'] = $row['email'];
-        $userData['age'] = $row['age'];
-        $userData['gender'] = $row['gender'];
-        $userData['grade'] = $row['grade'];
-        $userData['referral_code'] = $row['referral_code'];
-        $userData['password'] = $row['password'];
-        
-        $response["status"] = "true";
-        $response["message"] = "User";
-        $response["users"] = $userData;
-        
-    } else {
-        $response["status"] = "false";
-        $response["message"] = "No user(s) found!";
+        // GET ALL users
+        public function getUsers(){
+            $sqlQuery = "SELECT * FROM " . $this->db_table . "";
+            $stmt = $this->conn->prepare($sqlQuery);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        // Get single user
+        public function getSingleUser(){
+            $sqlQuery = "SELECT *
+                      FROM
+                        ". $this->db_table ."
+                    WHERE 
+                       id = ?
+                    LIMIT 0,1";
+            $stmt = $this->conn->prepare($sqlQuery);
+            $stmt->bindParam(1, $this->id);
+            $stmt->execute();
+            $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $this->id = $dataRow['id'];
+            $this->nickname = $dataRow['nickname'];
+            $this->email = $dataRow['email'];
+            $this->age = $dataRow['age'];
+            $this->gender = $dataRow['gender'];
+            $this->grade = $dataRow['grade'];
+            $this->referral_code = $dataRow['referral_code'];
+        }        
     }
-    echo json_encode($response); 
-    exit;
- 
 ?>
